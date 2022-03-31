@@ -1,4 +1,5 @@
-﻿using EconomicManagementAPP.Models;
+﻿using AutoMapper;
+using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,17 +8,20 @@ namespace EconomicManagementAPP.Controllers
 {
     public class AccountsController : Controller
     {
-        private IRepositorieAccounts _repositorieAccounts;
-        private IRepositorieUsers _repositorieUsers;
-        private IRepositorieAccountTypes _repositorieAccountTypes;
+        private readonly IRepositorieAccounts _repositorieAccounts;
+        private readonly IRepositorieUsers _repositorieUsers;
+        private readonly IRepositorieAccountTypes _repositorieAccountTypes;
+        private readonly IMapper _mapper;
 
         public AccountsController(IRepositorieAccounts repositorieAccounts,
                                   IRepositorieUsers repositorieUsers,
-                                  IRepositorieAccountTypes repositorieAccountTypes)
+                                  IRepositorieAccountTypes repositorieAccountTypes,
+                                  IMapper mapper)
         {
             this._repositorieAccounts = repositorieAccounts;
             this._repositorieUsers = repositorieUsers;
             this._repositorieAccountTypes = repositorieAccountTypes;
+            this._mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -79,20 +83,28 @@ namespace EconomicManagementAPP.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            return View(account);
+
+            var model = _mapper.Map<CreateAccountViewModel>(account);
+            model.AccountTypes = await GetAccountTypes(userId);
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Modify(Accounts accounts)
+        public async Task<IActionResult> Modify(CreateAccountViewModel model)
         {
             var userId = _repositorieUsers.GetUserId();
-            var account = await _repositorieAccounts.GetAccountById(accounts.Id, userId);
+            var account = await _repositorieAccounts.GetAccountById(model.Id, userId);
 
             if (account is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            await _repositorieAccounts.Modify(accounts);
+            var accountType = await _repositorieAccountTypes.GetAccountById(model.AccountTypeId, userId);
+            if(accountType is null)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+            await _repositorieAccounts.Modify(model);
             return RedirectToAction("Index");
         }
         [HttpGet]

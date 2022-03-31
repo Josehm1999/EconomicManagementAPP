@@ -14,8 +14,8 @@
 }
 
 <h1>Accounts</h1>
-
-<a asp-action="Create" class="btn btn-primary mb-3">Create user</a>
+<h5>Here you can see all of your accounts!</h5>
+<a asp-action="Create" class="btn btn-primary mb-3">Create</a>
 
 
 <div class="container-totals mb-3">
@@ -71,7 +71,14 @@
                         {
                             var accountClass = GetBalanceClass(account.Balance);
                             <li class="list-group-item">
-                                <span><strong>@account.Name</strong></span>
+                                <span><strong>@account.Name</strong>
+                                <a asp-action="Modify" asp-route-id="@account.Id" class="btn-primary btn">
+                                    <i class="bi-pencil-fill"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@account.Id" class="btn-danger btn">
+                                    <i class="bi-trash-fill"></i>
+                                </a>
+                                </span>
                                 <span class="@accountClass">@FormatBalance(account.Balance)</span>
                             </li>
                         }

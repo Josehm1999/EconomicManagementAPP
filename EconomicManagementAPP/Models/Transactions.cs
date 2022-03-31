@@ -12,7 +12,6 @@ namespace EconomicManagementAPP.Models
         [DataType(DataType.Date)]
         public DateTime TransactionDate { get; set; } = DateTime.Today;
 
-        [Required(ErrorMessage = "{0} is required")]
         public decimal Total { get; set; }
 
         [StringLength(maximumLength: 1000, ErrorMessage = "Description cannot have more than 1000 characters")]

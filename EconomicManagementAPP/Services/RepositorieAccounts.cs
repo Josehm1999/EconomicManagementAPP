@@ -49,7 +49,7 @@ namespace EconomicManagementAPP.Services
         {
             using var connection = new SqlConnection(connectionString);
             return await connection.QueryFirstOrDefaultAsync<Accounts>(
-                @"SELECT Accounts.Id, Accounts.Name, Balance, Description, at.Name AS AccountType
+                @"SELECT Accounts.Id, Accounts.Name, Balance, Description, AccountTypeId
                 FROM Accounts
                 INNER JOIN AccountTypes at
                 ON at.Id = Accounts.AccountTypeId
