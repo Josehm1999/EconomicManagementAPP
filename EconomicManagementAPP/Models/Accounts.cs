@@ -16,7 +16,9 @@ namespace EconomicManagementAPP.Models
         [Required(ErrorMessage = "{0} is required")]
         public decimal Balance { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
+        [StringLength(1000)]
         public string Description { get; set; }
+
+        public string AccountType { get; set; }
     }
 }

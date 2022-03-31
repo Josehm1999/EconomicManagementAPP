@@ -1,3 +1,38 @@
 #sortable tr {
   cursor: move;
 }
+
+.container-totals {
+    display:flex;
+    justify-content:space-around;
+    font-size: 1.625rem;
+    text-align:center;
+}
+
+.active {
+    color: blue;
+}
+
+.passive {
+    color: red;
+}
+
+.accordion-accounts button {
+    color: black !important;
+    font-size: 1.25rem;
+}
+
+.accordion-accounts button > span {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.accordion-accounts ul li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.accordion-accounts .accordion-collapse{
+    font-size: 1.125rem;
+}

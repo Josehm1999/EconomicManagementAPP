@@ -1,6 +1,16 @@
-﻿@model IEnumerable<Accounts>
+﻿@model IEnumerable<IndexAccountViewModel>
 @{
     ViewData["Title"] = "Accounts";
+
+    string FormatBalance(decimal balance)
+    {
+        return Math.Abs(balance).ToString("N");
+    }
+
+    string GetBalanceClass(decimal balance)
+    {
+        return balance >= 0 ? "active" : "passive";
+    }
 }
 
 <h1>Accounts</h1>
@@ -8,47 +18,67 @@
 <a asp-action="Create" class="btn btn-primary mb-3">Create user</a>
 
 
-@if(Model.Any())
-{
-    <table class="table">
-  <thead>
-    <tr>
-      <th>Actions</th>
-      <th>Name</th>
-      <th>AccountTypeId</th>
-      <th>Balance</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody id="reordenable">
-    @foreach (var accounts in Model)
-    {
-            <tr>
-                <td>
-                    <input type="hidden" value="@accounts.Id" class="ids" />
-                    <a class="btn btn-primary" asp-action="Modify" asp-route-id="@accounts.Id">Modify</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@accounts.Id">Delete</a>
-                </td>
-                <td>
-                    @accounts.Name
-                </td>
-                <td>
-                  @accounts.AccountTypeId
-                </td>
-                <td>
-                  @accounts.Balance
-                </td>
-                <td>
-                  @accounts.Description
-                </td>
-            </tr>
-    }
-  </tbody>
+<div class="container-totals mb-3">
+    <div>
+        <div>
+            <strong>Active</strong>
+        </div>
+        <div class="active">
+            @FormatBalance(@Model.Where(x => x.Balance >0).Sum(x => x.Balance))
+        </div>
+    </div>
+    <div>
+        <div>
+            <strong>Passive</strong>
+        </div>
+        <div class="passive">
+            @FormatBalance(@Model.Where(x => x.Balance <0).Sum(x => x.Balance))
+        </div>
+    </div>
+    <div>
+        <div>
+            <strong>Total</strong>
+        </div>
+        <div>
+            @FormatBalance(@Model.Sum(x => x.Balance))
+        </div>
+    </div>
+</div>
 
-</table>
-}@if(!Model.Any()){
-    <h1>
-        No results
-    </h1>
-}
+<div class="accordion accordion-acounts">
+    @foreach(var accountType in Model)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headerOne">
+                @{
+                    var id = accountType.AccounType.Replace(" ", "");
+                    var dataBSTarget = '#' + id;
+                    var accountTypeClass = GetBalanceClass(accountType.Balance);
+                }
+
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="@dataBSTarget">
+                    <span class="me-3">
+                        <span><strong>@accountType.AccounType</strong></span>
+                        <span class="@accountTypeClass">@FormatBalance(accountType.Balance)</span>
+                    </span>
+                </button>
+            </h2>
+
+                <div id="@id" class="accordion-collapse collapse show">
+                    <div>
+                        <ul class="list-group">
+                            @foreach (var account in accountType.Accounts)
+                        {
+                            var accountClass = GetBalanceClass(account.Balance);
+                            <li class="list-group-item">
+                                <span><strong>@account.Name</strong></span>
+                                <span class="@accountClass">@FormatBalance(account.Balance)</span>
+                            </li>
+                        }
+                    </ul>
+                    </div>
+                </div>
+        </div>
+    }
+</div>
 

@@ -19,6 +19,7 @@ CREATE TABLE [AccountTypes](
 	CONSTRAINT [FK_AccountTypes_Users] FOREIGN KEY (UserId) REFERENCES Users(Id)
 )
 GO
+INSERT INTO AccountTypes  (Name, UserId, OrderAccount) VALUES ('Credit', 1, 1);
 
 CREATE TABLE [Accounts](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -29,6 +30,7 @@ CREATE TABLE [Accounts](
     CONSTRAINT [FK_AccountType] FOREIGN KEY (AccountTypeId) REFERENCES AccountTypes(Id)
 )
 GO
+INSERT INTO Accounts (Name, AccountTypeId, Balance, Description) VALUES ('Credit 1', 1, 150.80, 'Account with $1500 worth of credit');
 
 CREATE TABLE [OperationTypes](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
