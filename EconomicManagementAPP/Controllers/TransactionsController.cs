@@ -29,8 +29,9 @@ namespace EconomicManagementAPP.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-            return View();
+            var userId = repositorieUsers.GetUserId();
+            var transactions = await repositorieTransactions.GetTransactionsByUser(userId);
+            return View(transactions);
         }
 
         public async Task<IActionResult> Create()
@@ -164,9 +165,21 @@ namespace EconomicManagementAPP.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userId = repositorieUsers.GetUserId();
+            var transaction = await repositorieTransactions.GetTransactionById(id, userId);
+
+            if (transaction is null)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+
+            return View(transaction);
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteTransaction(int id)
         {
 
             var userId = repositorieUsers.GetUserId();

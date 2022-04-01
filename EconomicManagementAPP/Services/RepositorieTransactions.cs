@@ -69,9 +69,16 @@ namespace EconomicManagementAPP.Services
         public async Task Delete(int id)
         {
             using var connection = new SqlConnection(connectionString);
-            await connection.ExecuteAsync("Transactions_Delete",
+            await connection.ExecuteAsync("Transaction_Delete",
                                           new { id }, commandType: System.Data.CommandType.StoredProcedure);
         }
 
+        public async Task<IEnumerable<Transactions>> GetTransactionsByUser(int userId)
+        {
+            using var connections = new SqlConnection(connectionString);
+            return await connections.QueryAsync<Transactions>(@"SELECT * FROM Transactions
+                                                                WHERE UserId = @userId", 
+                                                                new {userId});
+        }
     }
 }

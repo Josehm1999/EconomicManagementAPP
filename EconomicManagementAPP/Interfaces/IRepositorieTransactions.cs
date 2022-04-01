@@ -13,5 +13,7 @@ namespace EconomicManagementAPP.Repositories
         Task Delete(int id);
 
         Task<Transactions> GetTransactionById(int id, int userId);
+
+        Task<IEnumerable<Transactions>> GetTransactionsByUser(int userId);
     }
 }

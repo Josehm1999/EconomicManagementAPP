@@ -10,7 +10,7 @@ namespace EconomicManagementAPP.Models
 
         [Display(Name = "Transaction Date")]
         [DataType(DataType.Date)]
-        public DateTime TransactionDate { get; set; } = DateTime.Today;
+        public DateTime TransactionDate { get; set; } = DateTime.Now;
 
         public decimal Total { get; set; }
 
@@ -27,5 +27,6 @@ namespace EconomicManagementAPP.Models
 
         [Display(Name = "Operation Type")]
         public OperationTypes OperationTypesId { get; set; } = OperationTypes.Income;
+
     }
 }

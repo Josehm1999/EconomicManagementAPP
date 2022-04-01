@@ -5,9 +5,53 @@
 }
 
 <h1>Transactions</h1>
-
+<h5>From here you can view, add, modify or delete all of your transactions. </h5>
 <a asp-action="Create" class="btn btn-primary mb-3">Create</a>
 
+@if(Model.Any()){
+<table class="table">
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>Description</th>
+            <th>Total</th>
+            <th>Account</th>
+            <th>Category</th>
+            <th>Transaction Date</th>
+        </tr>
+    </thead>
+    <tbody id="reordenable">
+        @foreach (var transactions in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-primary" asp-action="Modify" asp-route-id="@transactions.Id">Modify</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@transactions.Id">Delete</a>
+                </td>
+                <td>
+                    @transactions.Description
+                </td>
+                <td>
+                    @transactions.Total
+                </td>
+                <td>
+                    @transactions.AccountId
+                </td>
+                <td>
+                    @transactions.CategoryId
+                </td>
+                <td>
+                    @transactions.TransactionDate.ToString("dddd, dd MMMM yyyy")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}@if(!Model.Any()){
+    <h1>
+        No results
+    </h1>
+}
 
 
 
