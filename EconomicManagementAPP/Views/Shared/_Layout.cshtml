@@ -22,6 +22,8 @@
                     <span></span>
                 </a>
                 <div class="header__links hide-for-mobile">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
                     <a asp-area="" asp-controller="AccountTypes" asp-action="Index">Account Types</a>
 
                     <a asp-area="" asp-controller="Users" asp-action="Index">Users</a>
@@ -63,17 +65,34 @@
                     </div>
 
         <div class="footer__links col1">
-            <a href="./index.html">Inicio</a>
-            <a href="./wallet.html">Cartera</a>
-            <a href="./about.html">Acerca de Poiocoin</a>
+            <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+            <a asp-area="" asp-controller="AccountTypes" asp-action="Index">Account Types</a>
+
+            <a asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+
+            <a asp-area="" asp-controller="Accounts" asp-action="Index">Accounts</a>
+
+            <a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+
+            <a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a>
         </div>
 
         <div class="footer__links col2">
-            <a href="./HowToStart.html">Com&oacute; empezar?</a>
-            <a href="./whyUse.html">Por qu&eacute; usar?</a>
+            <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+            <a asp-area="" asp-controller="AccountTypes" asp-action="Index">Account Types</a>
+
+            <a asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+
+            <a asp-area="" asp-controller="Accounts" asp-action="Index">Accounts</a>
+
+            <a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+
+            <a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a>
         </div>
         <div class="footer__cta mb-4 mb-lg-0">
-            <a href="#" class="button">Registrate</a>
+            <a class="button header__cta hide-for-mobile" asp-area="" asp-controller="Users" asp-action="Create">Register</a>
         </div>
         <div class="footer__copyright">&copy; 2022 EconomicManagementAPP All Rights Reserved.
         </div>
