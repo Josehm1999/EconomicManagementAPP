@@ -8,8 +8,6 @@ namespace EconomicManagementAPP.Repositories
 
         Task<bool> Exist(string Name, int Id);
 
-        Task<IEnumerable<Accounts>> GetAccounts();
-
         Task<Accounts> GetAccountById(int Id, int userId);
 
         Task<IEnumerable<Accounts>> GetUserAccounts(int id);

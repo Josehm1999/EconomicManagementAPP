@@ -1,4 +1,23 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// BurgerMenu animation
+const headerMenu = document.getElementById("headerMenu");
+const body = document.querySelector("body");
+const header = document.querySelector(".header");
+const fadeElems = document.querySelectorAll(".has-fade");
 
-// Write your JavaScript code.
+headerMenu.onclick = () => {
+    if (header.classList.contains("open")) {
+        body.classList.remove("noscroll");
+        header.classList.remove("open");
+        fadeElems.forEach((element) => {
+            element.classList.remove("fade-in");
+            element.classList.add("fade-out");
+        });
+    } else {
+        body.classList.add("noscroll");
+        header.classList.add("open");
+        fadeElems.forEach((element) => {
+            element.classList.remove("fade-out");
+            element.classList.add("fade-in");
+        });
+    }
+};

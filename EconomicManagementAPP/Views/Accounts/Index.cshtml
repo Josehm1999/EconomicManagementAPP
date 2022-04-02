@@ -24,7 +24,7 @@
             <strong>Active</strong>
         </div>
         <div class="active">
-            @FormatBalance(@Model.Where(x => x.Balance >0).Sum(x => x.Balance))
+            @FormatBalance(Model.Where(x => x.Balance >0).Sum(x => x.Balance))
         </div>
     </div>
     <div>
@@ -32,7 +32,7 @@
             <strong>Passive</strong>
         </div>
         <div class="passive">
-            @FormatBalance(@Model.Where(x => x.Balance <0).Sum(x => x.Balance))
+            @FormatBalance(Model.Where(x => x.Balance < 0).Sum(x => x.Balance))
         </div>
     </div>
     <div>
@@ -40,7 +40,7 @@
             <strong>Total</strong>
         </div>
         <div>
-            @FormatBalance(@Model.Sum(x => x.Balance))
+            @FormatBalance(Model.Sum(x => x.Balance))
         </div>
     </div>
 </div>

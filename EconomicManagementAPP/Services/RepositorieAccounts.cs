@@ -36,15 +36,6 @@ namespace EconomicManagementAPP.Services
             return exist == 1;
         }
 
-        public async Task<IEnumerable<Accounts>> GetAccounts()
-        {
-            using var connection = new SqlConnection(connectionString);
-            return await connection.QueryAsync<Accounts>(
-                @"SELECT
-                    Id, Name, AccountTypeId, Balance, Description
-                    FROM Accounts;");
-        }
-
         public async Task<Accounts> GetAccountById(int id, int userId)
         {
             using var connection = new SqlConnection(connectionString);
