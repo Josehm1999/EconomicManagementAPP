@@ -14,7 +14,7 @@
     <header class="header">
         <div class="overlay has-fade"></div>
         <nav class="container-lg py-4 px-4 my-0 mx-auto d-flex justify-content-between align-items-center">
-           
+
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EconomicManagementAPP</a>
                 <a id="headerMenu" href="#" class="header__toggle hide-for-desktop">
                     <span></span>
@@ -23,28 +23,28 @@
                 </a>
                 <div class="header__links hide-for-mobile">
                     <a asp-area="" asp-controller="AccountTypes" asp-action="Index">Account Types</a>
-                    
+
                     <a asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                    
+
                     <a asp-area="" asp-controller="Accounts" asp-action="Index">Accounts</a>
-                
+
                     <a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
-                       
+
                     <a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a>
                 </div>
                 <a class="button header__cta hide-for-mobile"  asp-area="" asp-controller="Users" asp-action="Create">Register</a>
         </nav>
         <div class="header__menu has-fade">
                     <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    
+
                     <a asp-area="" asp-controller="AccountTypes" asp-action="Index">Account Types</a>
-                    
+
                     <a asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                    
+
                     <a asp-area="" asp-controller="Accounts" asp-action="Index">Accounts</a>
-                
+
                     <a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
-                      
+
                     <a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a>
                 </div>
     </header>
@@ -56,27 +56,11 @@
     </div>
 
      <footer class="footer px-5 py-5  ">
-        <a class="footer__logo d-inline-block mb-4 mb-lg-0" href="/">
-             <img src="./assets/images/Poiocoin_logo3.png" alt="poiocoin">
-        </a>
+
+        <a class="footer__logo d-inline-block mb-4 mb-lg-0" asp-area="" asp-controller="Home" asp-action="Index">EconomicManagementAPP</a>
 
         <div class="footer__social mb-4 mb-lg-0">
-            <a href="#">
-                <img src="./assets/images/icon-facebook.svg" alt="Facebook">
-            </a>
-            <a href="#">
-                <img src="./assets/images/icon-twitter.svg" alt="Twitter">
-            </a>
-            <a href="#">
-                <img src="./assets/images/icon-youtube.svg" alt="Youtube">
-            </a>
-            <a href="#">
-                <img src="./assets/images/icon-instagram.svg" alt="Instagram">
-            </a>
-            <a href="#">
-                <img src="./assets/images/icon-pinterest.svg" alt="Pinterest">
-            </a>
-        </div>
+                    </div>
 
         <div class="footer__links col1">
             <a href="./index.html">Inicio</a>
@@ -91,7 +75,7 @@
         <div class="footer__cta mb-4 mb-lg-0">
             <a href="#" class="button">Registrate</a>
         </div>
-        <div class="footer__copyright">&copy; 2022 Poiocoin. All Rights Reserved.
+        <div class="footer__copyright">&copy; 2022 EconomicManagementAPP All Rights Reserved.
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
