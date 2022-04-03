@@ -13,6 +13,7 @@
 html {
   font-size: 100%;
   box-sizing: border-box;
+  height: 100%;
 }
 
 *,
@@ -30,8 +31,16 @@ body {
   color: var(--main-text-color);
   line-height: 1.3;
   overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+.main {
+  flex: auto;
+  overflow: auto;
+}
 @media (min-width: 64rem) {
   body {
     font-size: 1.25rem;
@@ -140,6 +149,7 @@ button,
 .header {
   position: relative;
   z-index: 1;
+  height: 6.3rem;
   background-color: var(--main-bg-color);
 }
 
@@ -249,8 +259,7 @@ button,
   background-color: var(--main-bg-color);
   color: var(--title-color);
   text-align: center;
-  position: absolute;
-  bottom: 0;
+
   width: 100%;
 }
 
