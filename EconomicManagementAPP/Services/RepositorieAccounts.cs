@@ -58,7 +58,8 @@ namespace EconomicManagementAPP.Services
         public async Task Delete(int id)
         {
             using var connection = new SqlConnection(connectionString);
-            await connection.ExecuteAsync("DELETE Accounts WHERE Id = @Id", new { id });
+            await connection.ExecuteAsync("Accounts_Delete",
+                                          new { id }, commandType: System.Data.CommandType.StoredProcedure);
         }
 
         public async Task<IEnumerable<Accounts>> GetUserAccounts(int userId)
