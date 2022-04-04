@@ -2,8 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EconomicManagementAPP.Models
 {
-    public class LoginViewModel
+    public class RegisterViewModel
     {
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [EmailAddress(ErrorMessage = "Invalid format Email")]
@@ -12,7 +13,5 @@ namespace EconomicManagementAPP.Models
         [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        public bool RememberMe { get; set; }
     }
 }

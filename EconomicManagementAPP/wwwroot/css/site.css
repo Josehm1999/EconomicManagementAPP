@@ -253,6 +253,16 @@ button,
   /* Mobile menu */
   transform: rotate(-45deg);
 }
+.header__welcome {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2rem;
+  align-items: center;
+}
+.welcomeMessage {
+  color: var(--title-color);
+  margin-right: 1rem;
+}
 
 /* Section: Footer*/
 

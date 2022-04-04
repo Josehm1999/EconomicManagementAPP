@@ -3,7 +3,7 @@ using EconomicManagementAPP.Models;
 
 public interface IRepositorieUsers
 {
-    Task Create(Users users);
+    Task<int> Create(Users users);
 
     Task<bool> Exist(string Email);
 
@@ -18,5 +18,5 @@ public interface IRepositorieUsers
     Task<Users> Login(string email, string password);
 
     int GetUserId();
-
+    Task<Users> GetUserByEmail(string standarEmail);
 }

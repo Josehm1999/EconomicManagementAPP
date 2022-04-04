@@ -13,7 +13,7 @@
 <body>
     <header class="header">
         <div class="overlay has-fade"></div>
-        <nav class="container-lg py-4 px-4 my-0 mx-auto d-flex justify-content-between align-items-center">
+        <nav class=" py-4 px-4 mx-0 d-flex justify-content-between align-items-center">
 
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EconomicManagementAPP</a>
                 <a id="headerMenu" href="#" class="header__toggle hide-for-desktop">
@@ -33,8 +33,10 @@
                     <a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
 
                     <a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a>
+
                 </div>
-                <a class="button header__cta hide-for-mobile"  asp-area="" asp-controller="Users" asp-action="Create">Register</a>
+                <partial name="_LinksLogin" />
+
         </nav>
         <div class="header__menu has-fade">
                     <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>

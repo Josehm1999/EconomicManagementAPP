@@ -1,6 +1,7 @@
 using AutoMapper;
 using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -27,6 +28,7 @@ namespace EconomicManagementAPP.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var userId = repositorieUsers.GetUserId();
