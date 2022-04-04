@@ -4,18 +4,19 @@ To run the application you need to change the Data Source,User ID and Password a
 
 Results:
 
-## Index
+## Login
 
-![image](https://user-images.githubusercontent.com/49110761/159973578-36e9bd7f-6651-481c-83bf-2a4208871b5a.png)
+![image](https://user-images.githubusercontent.com/49110761/161609556-e1b32cf1-811a-4cec-b7b9-08100ec1042e.png)
 
-## Register User
+## User Accounts 
 
-![image](https://user-images.githubusercontent.com/49110761/159973660-e52d4500-444a-4669-afd4-5735c478959b.png)
+![image](https://user-images.githubusercontent.com/49110761/161610860-f9631f06-2b65-4b29-bd1f-a624077a6449.png)
 
-## Modify User
+## Account Types Index
 
-![image](https://user-images.githubusercontent.com/49110761/159973771-bfd34855-5a91-424a-b6ad-4f3e466f9f73.png)
+![image](https://user-images.githubusercontent.com/49110761/161611036-d8f5c1c2-ae43-47fa-9a01-344a699b535b.png)
 
-## Delete User
+## User Transactions
+![image](https://user-images.githubusercontent.com/49110761/161611305-1c9702e0-f772-4c26-8716-34af7c9152dc.png)
 
-![image](https://user-images.githubusercontent.com/49110761/159973826-50cc60ba-b298-439b-87bf-57b627ce660a.png)
+
