@@ -161,6 +161,7 @@ namespace EconomicManagementAPP.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
+
             await _repositorieUser.Delete(id);
             return RedirectToAction("Index");
         }
