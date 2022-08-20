@@ -11,7 +11,6 @@ CREATE TABLE [Users](
 )
 GO
 
-INSERT INTO Users (Email,StandarEmail,Password) VALUES ('test1@gmail.com', 'TEST1@GMAIL.COM', '12345');
 CREATE TABLE [AccountTypes](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
@@ -164,106 +163,5 @@ BEGIN
 	VALUES (@Name, @UserId, @OrderAccount);
 
 	SELECT SCOPE_IDENTITY();
-END
-GO
-
-CREATE PROCEDURE Categorie_Delete
-@id INT
-AS
-BEGIN
-	SET NOCOUNT ON;
-		IF EXISTS (SELECT 1 FROM Transactions WHERE CategoryId = @id )
-		BEGIN
-			DELETE FROM Transactions WHERE CategoryId = @id
-		END
-		DELETE FROM Categories WHERE Id = @id
-END
-GO
-
-CREATE PROCEDURE Accounts_Delete
-@id INT
-AS
-BEGIN
-SET NOCOUNT ON;
-		IF EXISTS (SELECT 1 FROM Transactions WHERE AccountId = @id )
-		BEGIN
-			DELETE FROM Transactions WHERE AccountId = @id
-		END
-		DELETE FROM Accounts WHERE Id = @id
-END
-GO
-
-CREATE PROCEDURE AccountTypes_Delete
-@id int
-AS
-BEGIN
-SET NOCOUNT ON;
-		IF EXISTS (SELECT 1 FROM Transactions t
-			INNER JOIN Accounts a ON t.AccountId = a.Id
-			INNER JOIN AccountTypes at ON at.Id = a.AccountTypeId
-			WHERE at.Id = @id )
-		BEGIN
-			DELETE Transactions
-			FROM Transactions t
-			INNER JOIN Accounts a ON t.AccountId = a.Id
-			INNER JOIN AccountTypes at ON at.Id = a.AccountTypeId
-			WHERE at.Id = @id;
-		END
-		IF EXISTS (SELECT 1 FROM Accounts a
-			INNER JOIN AccountTypes at ON at.Id = a.AccountTypeId
-			WHERE at.Id=@id)
-		BEGIN
-			DELETE Accounts FROM Accounts a
-			INNER JOIN AccountTypes at ON at.Id = a.AccountTypeId
-			WHERE at.Id=@id
-		END
-		DELETE FROM AccountTypes
-		WHERE Id = @id;
-END
-GO
-
-CREATE PROCEDURE Users_Delete
-@id int
-AS
-BEGIN
-SET NOCOUNT ON;
-		If exists (SELECT 1 FROM Transactions t
-			INNER JOIN Accounts a ON t.AccountId = a.Id
-			INNER JOIN AccountTypes at ON at.Id = a.AccountTypeId
-			INNER JOIN Users u ON u.Id = at.UserId
-			WHERE u.Id = @id )
-		BEGIN
-			DELETE Transactions
-			FROM Transactions t
-			INNER JOIN Accounts a ON t.AccountId = a.Id
-			INNER JOIN AccountTypes at ON at.Id = a.AccountTypeId
-			INNER JOIN Users u ON u.Id = at.UserId
-			WHERE u.Id = @id;
-		END
-		IF EXISTS (SELECT 1 FROM Accounts a
-			INNER JOIN AccountTypes at ON at.Id = a.AccountTypeId
-			INNER JOIN Users u ON u.Id = at.UserId
-			WHERE u.Id = @id)
-		BEGIN
-			DELETE Accounts FROM Accounts a
-			INNER JOIN AccountTypes at ON at.Id = a.AccountTypeId
-			INNER JOIN Users u ON u.Id = at.UserId
-			WHERE u.Id = @id;
-		END
-		IF EXISTS (SELECT 1 FROM AccountTypes at
-			INNER JOIN Users u ON u.Id = at.UserId
-			WHERE u.Id = @id)
-		BEGIN
-			DELETE FROM AccountTypes
-			WHERE UserId = @id;
-		END
-		IF EXISTS (SELECT 1 FROM Categories c
-				INNER JOIN Users u ON u.Id = c.UserId
-				WHERE u.Id = @id)
-		BEGIN
-			DELETE FROM Categories
-			WHERE UserId = @id;
-		END
-		DELETE FROM Users WHERE Id = @id
 END
 GO

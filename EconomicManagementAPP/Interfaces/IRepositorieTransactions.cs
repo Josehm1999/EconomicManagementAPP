@@ -15,5 +15,6 @@ namespace EconomicManagementAPP.Repositories
         Task<Transactions> GetTransactionById(int id, int userId);
 
         Task<IEnumerable<Transactions>> GetTransactionsByUser(int userId);
+        Task<IEnumerable<Transactions>> GetTransactionsByAccountId(GetTransactionByAccount model);
     }
 }

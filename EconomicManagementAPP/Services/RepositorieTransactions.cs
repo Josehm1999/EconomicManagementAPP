@@ -47,6 +47,20 @@ namespace EconomicManagementAPP.Services
 
         }
 
+        public async Task<IEnumerable<Transactions>>  GetTransactionsByAccountId(GetTransactionByAccount model)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Transactions>(@"SELECT t.Id, t.Total, t.TransactionDate, c.Name as Categoria,
+                                                            acc.Name as Account, c.OperationTypeId
+                                                            FROM Transactions t
+                                                            INNER JOIN Categories c
+                                                            ON c.Id = t.CategoryId
+                                                            INNER JOIN Accounts acc
+                                                            ON acc.Id = t.AccountId
+                                                            WHERE t.AccountId = @AccountId AND t.UserId = @UserId
+                                                            AND TransactionDate BETWEEN @StartDate AND @EndDate", model);
+        }
+
         public async Task ModifyTransaction(Transactions transactions,
                                             decimal previousTotal,
                                             int previousAccountId)
@@ -77,8 +91,8 @@ namespace EconomicManagementAPP.Services
         {
             using var connections = new SqlConnection(connectionString);
             return await connections.QueryAsync<Transactions>(@"SELECT * FROM Transactions
-                                                                WHERE UserId = @userId", 
-                                                                new {userId});
+                                                                WHERE UserId = @userId",
+                                                                new { userId });
         }
     }
 }

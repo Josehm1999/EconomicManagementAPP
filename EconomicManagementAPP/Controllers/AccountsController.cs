@@ -12,15 +12,18 @@ namespace EconomicManagementAPP.Controllers
         private readonly IRepositorieUsers _repositorieUsers;
         private readonly IRepositorieAccountTypes _repositorieAccountTypes;
         private readonly IMapper _mapper;
+        private readonly IRepositorieTransactions _repositorieTransactions;
 
         public AccountsController(IRepositorieAccounts repositorieAccounts,
                                   IRepositorieUsers repositorieUsers,
                                   IRepositorieAccountTypes repositorieAccountTypes,
-                                  IMapper mapper)
+                                  IMapper mapper,
+                                  IRepositorieTransactions repositorieTransactions)
         {
             this._repositorieAccounts = repositorieAccounts;
             this._repositorieUsers = repositorieUsers;
             this._repositorieAccountTypes = repositorieAccountTypes;
+            this._repositorieTransactions = repositorieTransactions;
             this._mapper = mapper;
         }
 
@@ -40,6 +43,58 @@ namespace EconomicManagementAPP.Controllers
             return View(model);
         }
 
+
+        public async Task<IActionResult> Detail(int id, int month, int year)
+        {
+            var userId = _repositorieUsers.GetUserId();
+            var account = await _repositorieAccounts.GetAccountById(id, userId);
+
+            if (account is null)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+
+            DateTime startDate;
+            DateTime endDate;
+
+            if (month <= 0 || month > 12 || year <= 1900)
+            {
+                var today = DateTime.Today;
+                startDate = new DateTime(today.Year, today.Month, 1);
+            }
+            else
+            {
+                startDate = new DateTime(year, month, 1);
+            }
+            endDate = startDate.AddMonths(1).AddDays(-1);
+
+            var _getTransactionsByAccount = new GetTransactionByAccount()
+            {
+                AccountId = id,
+                UserId = userId,
+                StartDate = startDate,
+                EndDate = endDate,
+            };
+
+            var transactionns = await _repositorieTransactions.GetTransactionsByAccountId(_getTransactionsByAccount);
+            var model = new DetailedTransactionsReport();
+            ViewBag.Account = account.Name;
+
+            var transactionsByDate = transactionns.OrderByDescending(x => x.TransactionDate)
+                      .GroupBy(x => x.TransactionDate)
+                      .Select(group => new DetailedTransactionsReport.TransactionsByDate()
+                      {
+                          TransactionDate = group.Key,
+                          Transactions = group.AsEnumerable()
+                      });
+
+            model.GroupedTransactions = transactionsByDate;
+            model.StartDate = startDate;
+            model.EndDate = endDate;
+
+            return View(model);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -54,22 +109,22 @@ namespace EconomicManagementAPP.Controllers
         {
             var userId = _repositorieUsers.GetUserId();
             var accountType = await _repositorieAccountTypes.GetAccountById(accounts.AccountTypeId, userId);
-           
-            if(accountType is null)
+
+            if (accountType is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            
+
             if (!ModelState.IsValid)
             {
-                accounts.AccountTypes = await GetAccountTypes(userId); 
+                accounts.AccountTypes = await GetAccountTypes(userId);
                 return View(accounts);
             }
-            
+
             await _repositorieAccounts.Create(accounts);
             return RedirectToAction("Index");
         }
-        
+
         private async Task<IEnumerable<SelectListItem>> GetAccountTypes(int userId)
         {
             var accountTypes = await _repositorieAccountTypes.GetAccounts(userId);
@@ -100,7 +155,7 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
             var accountType = await _repositorieAccountTypes.GetAccountById(model.AccountTypeId, userId);
-            if(accountType is null)
+            if (accountType is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }

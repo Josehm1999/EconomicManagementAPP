@@ -11,13 +11,13 @@
     <input type="hidden" asp-for="Id" />
     <div class="mb-3">
         <label asp-for="StandarEmail" class="form-label"></label>
-        <input asp-for="StandarEmail" class="form-control" />
+        <input type="text" asp-for="StandarEmail" class="form-control" />
         <span asp-validation-for="StandarEmail" class="text-danger"></span>
     </div>
 
         <div class="mb-3">
         <label asp-for="Password" class="form-label"></label>
-        <input asp-for="Password" class="form-control" />
+        <input type="password" asp-for="Password" class="form-control" />
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
 

@@ -28,5 +28,8 @@ namespace EconomicManagementAPP.Models
         [Display(Name = "Operation Type")]
         public OperationTypes OperationTypesId { get; set; } = OperationTypes.Income;
 
+
+        public string Account { get; set; }
+        public string Category { get; set; }
     }
 }
