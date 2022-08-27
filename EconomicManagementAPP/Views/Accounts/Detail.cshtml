@@ -29,7 +29,7 @@ ViewData["Title"] = "Movimientos Cuenta";
     </div>
   </div>
   <div>
-    <div><strong>Depósitos</strong></div>
+    <div><strong>Total</strong></div>
     <div class="active">
       @Model.Total.ToString("N")
     </div>
@@ -38,9 +38,9 @@ ViewData["Title"] = "Movimientos Cuenta";
 
 @if (Model.GroupedTransactions.Count() == 0)
 {
-    <h5>No hay datos para mostrar</h5>
+<h5>No hay datos para mostrar</h5>
 } else
-{    
+{
 <table class="table">
   <tbody>
     @foreach(var groupedTransaction in Model.GroupedTransactions)
@@ -51,13 +51,32 @@ ViewData["Title"] = "Movimientos Cuenta";
           @groupedTransaction.TransactionDate.ToString("ddd")
         </span>
       </td>
-        <td class="active">
-        @groupedTransaction.DepocitsBalance.ToString("N") 
+      <td class="active">
+        @groupedTransaction.DepocitsBalance.ToString("N")
       </td>
-        <td class="active">
-        @groupedTransaction.WithdrawalsBalance.ToString("N") 
+      <td class="passive">
+        @groupedTransaction.WithdrawalsBalance.ToString("N")
       </td>
     </tr>
+    @foreach (var transaction in groupedTransaction.Transactions)
+    {
+    <tr style="vertical-align:middle">
+      <td>
+        <a asp-controller="transactions" asp-action="Edit" asp-route-id="@transaction.Id" style="color:blue">
+          <i class="bi-pencil">
+          </i>
+        </a>
+      </td>
+      <td>@transaction.Category</td>
+      <td>@transaction.Account</td>
+      <td class="active">@(transaction.OperationTypesId== OperationTypes.Income ? transaction.Total.ToString("N") : null)
+      </td>
+      <td class="passive">@(transaction.OperationTypesId== OperationTypes.Expenses ? transaction.Total.ToString("N") : null)
+      </td>
+
+
+    </tr>
+    }
     }
   </tbody>
 </table>

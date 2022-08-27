@@ -95,9 +95,8 @@ namespace EconomicManagementAPP.Controllers
             ViewBag.lastMonth = startDate.AddMonths(-1).Month;
             ViewBag.lastYear = startDate.AddMonths(-1).Year;
 
-            ViewBag.lastMonth = startDate.AddMonths(+1).Month;
+            ViewBag.nextMonth = startDate.AddMonths(+1).Month;
             ViewBag.nextYear = startDate.AddMonths(+1).Year;
-           
             return View(model);
         }
 
@@ -136,6 +135,7 @@ namespace EconomicManagementAPP.Controllers
             var accountTypes = await _repositorieAccountTypes.GetAccounts(userId);
             return accountTypes.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
         }
+
         public async Task<IActionResult> Modify(int Id)
         {
             var userId = _repositorieUsers.GetUserId();
