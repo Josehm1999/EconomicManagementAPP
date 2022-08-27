@@ -75,7 +75,7 @@ namespace EconomicManagementAPP.Controllers
                 StartDate = startDate,
                 EndDate = endDate,
             };
-
+             
             var transactionns = await _repositorieTransactions.GetTransactionsByAccountId(_getTransactionsByAccount);
             var model = new DetailedTransactionsReport();
             ViewBag.Account = account.Name;
@@ -87,11 +87,17 @@ namespace EconomicManagementAPP.Controllers
                           TransactionDate = group.Key,
                           Transactions = group.AsEnumerable()
                       });
-
+            
             model.GroupedTransactions = transactionsByDate;
             model.StartDate = startDate;
             model.EndDate = endDate;
 
+            ViewBag.lastMonth = startDate.AddMonths(-1).Month;
+            ViewBag.lastYear = startDate.AddMonths(-1).Year;
+
+            ViewBag.lastMonth = startDate.AddMonths(+1).Month;
+            ViewBag.nextYear = startDate.AddMonths(+1).Year;
+            Console.WriteLine(model.GroupedTransactions.Count());
             return View(model);
         }
 
@@ -162,6 +168,7 @@ namespace EconomicManagementAPP.Controllers
             await _repositorieAccounts.Modify(model);
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public async Task<IActionResult> Delete(int Id)
         {
@@ -174,6 +181,7 @@ namespace EconomicManagementAPP.Controllers
             }
             return View(account);
         }
+
         [HttpPost]
         public async Task<IActionResult> DeleteAccount(int Id)
         {

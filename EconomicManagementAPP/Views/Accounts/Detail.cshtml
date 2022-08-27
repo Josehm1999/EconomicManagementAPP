@@ -1,0 +1,61 @@
+@{
+ViewData["Title"] = "Movimientos Cuenta";
+}
+
+<h1>Movimientos @ViewBag.Account</h1>
+
+<h4>
+  <a asp-route-month="@ViewBag.lastMonth" asp-route-year="@ViewBag.lastYear" class="btn btn-secondary"><i
+      class="bi-chevron-left"></i></a>
+  @Model.StartDate.ToString("MMMM")-@Model.StartDate.Year
+
+  <a asp-route-month="@ViewBag.nextMonth" asp-route-year="@ViewBag.nextYear" class="btn btn-secondary"><i
+      class="bi-chevron-right"></i></a>
+</h4>
+
+<div class="container-totals mb-3">
+  <div>
+    <div><strong>Depósitos</strong></div>
+    <div class="active">
+      @Model.DepocitsBalance.ToString("N")
+    </div>
+  </div>
+  <div>
+    <div><strong>Depósitos</strong></div>
+    <div class="passive">
+      @Model.WithdrawalsBalance.ToString("N")
+    </div>
+  </div>
+  <div>
+    <div><strong>Depósitos</strong></div>
+    <div class="active">
+      @Model.Total.ToString("N")
+    </div>
+  </div>
+</div>
+
+@if (Model.GroupedTransactions.Count() == 0)
+{
+<h5>No hay datos para mostrar</h5>
+} else {
+<table class="table">
+  <tbody>
+    @foreach(var groupedTransaction in Model.GroupedTransactions)
+    {
+    <tr style="background-color:lightblue; font-size: 1.625rem;">
+      <td colspan="3">@groupedTransaction.TransactionDate.Day
+        <span class="badge bg-secondary">
+          @groupedTransaction.TransactionDate.ToString("ddd")
+        </span>
+      </td>
+        <td class="active">
+        @groupedTransaction.DepocitsBalance.ToString("N") 
+      </td>
+        <td class="active">
+        @groupedTransaction.WithdrawalsBalance.ToString("N") 
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+}
