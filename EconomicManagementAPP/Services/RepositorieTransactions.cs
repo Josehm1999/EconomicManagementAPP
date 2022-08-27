@@ -62,8 +62,8 @@ namespace EconomicManagementAPP.Services
         }
 
         public async Task ModifyTransaction(Transactions transactions,
-                                            decimal previousTotal,
-                                            int previousAccountId)
+                                            decimal PreviousTotal,
+                                            int PreviousAccountId)
         {
             using var connection = new SqlConnection(connectionString);
             await connection.ExecuteAsync("Transactions_Update",
@@ -72,11 +72,12 @@ namespace EconomicManagementAPP.Services
                 transactions.Id,
                 transactions.TransactionDate,
                 transactions.Total,
-                transactions.CategoryId,
+                PreviousTotal,
                 transactions.AccountId,
+                PreviousAccountId,
+                transactions.CategoryId,
                 transactions.Description,
-                previousTotal,
-                previousAccountId
+               
             }, commandType: System.Data.CommandType.StoredProcedure);
         }
 

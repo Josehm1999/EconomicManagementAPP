@@ -113,6 +113,8 @@ namespace EconomicManagementAPP.Controllers
 
             var model = mapper.Map<ModifyTransactionViewModel>(transactions);
 
+            model.PreviousTotal = model.Total;
+
             if (model.OperationTypesId == OperationTypes.Expenses)
             {
                 model.PreviousTotal = model.Total * -1;
@@ -153,7 +155,7 @@ namespace EconomicManagementAPP.Controllers
 
             var transaction = mapper.Map<Transactions>(model);
 
-            model.PreviousTotal = model.Total;
+            
             if (model.OperationTypesId == OperationTypes.Expenses)
             {
                 transaction.Total *= -1;
