@@ -1,3 +1,5 @@
+@model DetailedTransactionsReport
+
 @{
 ViewData["Title"] = "Movimientos Cuenta";
 }
@@ -36,8 +38,9 @@ ViewData["Title"] = "Movimientos Cuenta";
 
 @if (Model.GroupedTransactions.Count() == 0)
 {
-<h5>No hay datos para mostrar</h5>
-} else {
+    <h5>No hay datos para mostrar</h5>
+} else
+{    
 <table class="table">
   <tbody>
     @foreach(var groupedTransaction in Model.GroupedTransactions)

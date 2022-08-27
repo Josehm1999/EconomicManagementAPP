@@ -97,7 +97,7 @@ namespace EconomicManagementAPP.Controllers
 
             ViewBag.lastMonth = startDate.AddMonths(+1).Month;
             ViewBag.nextYear = startDate.AddMonths(+1).Year;
-            Console.WriteLine(model.GroupedTransactions.Count());
+           
             return View(model);
         }
 
